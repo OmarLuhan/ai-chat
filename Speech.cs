@@ -17,7 +17,7 @@ public interface ISpeech
 }
 public class Speech(HttpClient httpClient,IOptions<ElevenLabsSettings> elevenLabsOptions,IOptions<DeepGramSettings>deepGramOptions):ISpeech
 {
-    private ElevenLabsSettings _elevenLabsSettings=elevenLabsOptions.Value;
+    private readonly ElevenLabsSettings _elevenLabsSettings=elevenLabsOptions.Value;
     private readonly DeepGramSettings _deepGramSettings=deepGramOptions.Value;
     public async Task<string> TextToSpeechAsync(string text)
     {
@@ -52,7 +52,7 @@ public class Speech(HttpClient httpClient,IOptions<ElevenLabsSettings> elevenLab
             Model = "nova-3",
         });
         Library.Terminate();
-        return response.Results?.Channels?[0]?.Alternatives?[0]?.Transcript ?? "responde con: 'no funciona tu microfono' mas un insulto leve";
+        return response.Results?.Channels?[0].Alternatives?[0].Transcript ?? "responde con: 'no funciona tu microfono'";
     }
 
     public async Task SpeakAsync(string filePath)

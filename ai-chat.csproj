@@ -6,18 +6,19 @@
     <RootNamespace>ai_chat</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <UserSecretsId>79a4dc9d-1cf4-4139-b2ea-495caddf9d7f</UserSecretsId>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Deepgram" Version="5.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Content\" />
   </ItemGroup>
-
 </Project>
