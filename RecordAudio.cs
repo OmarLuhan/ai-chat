@@ -25,25 +25,31 @@ public class RecordAudio: IRecordAudio
         Console.ReadKey();
         Console.WriteLine("\nListening for 5 seconds...");
 
-        using var process = new Process();
-        process.StartInfo = new ProcessStartInfo
+        try
         {
-            FileName = "ffmpeg",
-            Arguments = $"-f pulse -i alsa_input.pci-0000_00_1f.3.analog-stereo -t 5 -y {filePath}",
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
+            using var process = new Process();
+            process.StartInfo = new ProcessStartInfo
+            {
+                FileName = "ffmpeg",
+                Arguments = $"-f pulse -i alsa_input.pci-0000_00_1f.3.analog-stereo -t 5 -y {filePath}",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
 
-        process.Start();
-        var  output = await process.StandardOutput.ReadToEndAsync();
-        var errorOutput = await process.StandardError.ReadToEndAsync();
-        await process.WaitForExitAsync();
-        Console.WriteLine("ffmpeg output:");
-        Console.WriteLine(output);
-        Console.WriteLine("ffmpeg errors:");
-        Console.WriteLine(errorOutput);
-        return File.Exists(filePath) ? filePath : "";
+            process.Start();
+            var  output = await process.StandardOutput.ReadToEndAsync();
+            var errorOutput = await process.StandardError.ReadToEndAsync();
+            await process.WaitForExitAsync();
+            Console.WriteLine("ffmpeg output:");
+            Console.WriteLine(output);
+            Console.WriteLine("ffmpeg errors:");
+            Console.WriteLine(errorOutput);
+            return File.Exists(filePath) ? filePath : "";
+        }catch (Exception)
+        {
+            return "";
+        }
     }
 }

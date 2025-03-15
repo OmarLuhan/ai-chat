@@ -16,11 +16,12 @@ var recordAudio= serviceProvider.GetRequiredService<IRecordAudio>();
 while (true)
 {
     var file =await recordAudio.StartRecording();
+    if(string.IsNullOrEmpty(file)) continue;
     var question = await speaker.SpeechToTextAsync(file);
-    Console.Write(file);
     Console.WriteLine(question);
     var response=await ollama.AskAsync(question);
     Console.WriteLine(response);
     var filePath=await speaker.TextToSpeechAsync(response);
+    if(string.IsNullOrEmpty(filePath)) continue;
     await speaker.SpeakAsync(filePath);
 }
