@@ -39,13 +39,9 @@ public class RecordAudio: IRecordAudio
             };
 
             process.Start();
-            var  output = await process.StandardOutput.ReadToEndAsync();
-            var errorOutput = await process.StandardError.ReadToEndAsync();
+            _= await process.StandardOutput.ReadToEndAsync();
+            _= await process.StandardError.ReadToEndAsync();
             await process.WaitForExitAsync();
-            Console.WriteLine("ffmpeg output:");
-            Console.WriteLine(output);
-            Console.WriteLine("ffmpeg errors:");
-            Console.WriteLine(errorOutput);
             return File.Exists(filePath) ? filePath : "";
         }catch (Exception)
         {
