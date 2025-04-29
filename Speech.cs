@@ -30,7 +30,8 @@ public class Speech(HttpClient httpClient,IOptions<ElevenLabsSettings> elevenLab
             var audio=await File.ReadAllBytesAsync(filePath);
             var response = await deepGramClient.TranscribeFile(audio, new PreRecordedSchema()
             {
-                Model = "nova-3",
+                Model = "whisper", 
+                Language = "es"
             });
             Library.Terminate();
             return response.Results?.Channels?[0].Alternatives?[0].Transcript ?? "responde con: 'no se ha encontrado la transcripcion'";

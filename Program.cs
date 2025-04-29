@@ -18,6 +18,7 @@ while (true)
     var file =await recordAudio.StartRecording();
     if(string.IsNullOrEmpty(file)) continue;
     var question = await speaker.SpeechToTextAsync(file);
+    if(string.IsNullOrEmpty(question)) continue;
     Console.WriteLine(question);
     var response=await ollama.AskAsync(question);
     Console.WriteLine(response);
